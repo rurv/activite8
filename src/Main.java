@@ -6,21 +6,19 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws IOException {
         Graphe g=new Graphe();
-        g.charger(     );
+        g.charger("activite6_wiki.txt");
         g.afficherListeSucc();
         System.out.println("Exploration en largeur (BFS) :");
-
         System.out.println("Sommets découverts dans l'ordre :");
+        afficher_ordre_decouverte(g.explorerLargeur(g.l_sommets.getFirst()));
 
         System.out.println("Exploration en profondeur itératif avec pile (DFS) :");
-
         System.out.println("Sommets découverts dans l'ordre :");
-        ;
         System.out.println("Sommets explorés dans l'ordre :");
 
         System.out.println("Exploration en profondeur récursif (DFS récursif) :");
-
         System.out.println("Sommets découverts dans l'ordre :");
+        afficher_ordre_decouverte(g.explorerProfondeur_rec(g.l_sommets.getFirst()));
 
 
     }
