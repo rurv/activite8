@@ -15,19 +15,19 @@ public class Sommet {
 
     /* méthode d'ajout d'un successeur à compléter */
     public void ajouterSuccesseur(Sommet s){
-
+        l_successeurs.add(s);
     }
 
 
 
     /*accesseurs à compléter */
     public ArrayList<Sommet> getSuccesseurs(){
-
+        return (ArrayList<Sommet>) l_successeurs;
     }
     public int getId(){
-
+        return id;
     }
     public String getName(){
-
+        return nom;
     }
 }
