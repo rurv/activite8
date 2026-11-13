@@ -118,4 +118,77 @@ public class Graphe {
             System.out.println();
         }
     }
+    public ArrayList<Sommet> BFS_Parents(Sommet s) {
+        ArrayList<Sommet> parents = new ArrayList<Sommet>();
+        Queue<Sommet> file = new ArrayDeque<Sommet>();
+        ArrayList<Boolean> marque = new ArrayList<Boolean>();
+
+        for (int i = 0; i < l_sommets.size(); i++) {//ON passe a tout les sommets pour les inintiliser a null
+            parents.add(i, null);
+            marque.add(i, false);
+        }
+        marque.add(s.getId(), true);
+        file.add(s);
+
+        while (!file.isEmpty()) {
+            Sommet courant = file.poll();
+            for (Sommet succ : courant.getSuccesseurs()) {
+                if (!marque.get(succ.getId())) {
+                    marque.set(succ.getId(), true);
+                    file.add(succ);
+                    parents.set(succ.getId(), courant); // Mémorisation du parent
+
+
+                }
+            }
+        }
+        return parents;
+    }
+    public ArrayList<Sommet> DFS_parents(Sommet s) {
+        ArrayList<Sommet> parents = new ArrayList<Sommet>();
+        ArrayList<Boolean> marque = new ArrayList<Boolean>();
+
+        // 1. Initialisation (identique au BFS)
+        for (int i = 0; i < l_sommets.size(); i++) {
+            parents.add(i, null);
+            marque.add(i, false);
+        }
+
+        // 2. Marquage du départ et lancement de la récursivité
+        marque.set(s.getId(), true);
+        parcoursDFS_parents(s, parents, marque);
+
+        return parents;
+    }
+
+    private void parcoursDFS_parents(Sommet courant, ArrayList<Sommet> parents, ArrayList<Boolean> marque) {
+        for (Sommet succ : courant.getSuccesseurs()) {
+            if (!marque.get(succ.getId())) {
+                marque.set(succ.getId(), true);
+                parents.set(succ.getId(), courant);
+                parcoursDFS_parents(succ, parents, marque); // On plonge sur le successeur
+            }
+        }
+    }
+    public ArrayList<Sommet> retrouverChemin(Sommet s1, Sommet s2, ArrayList<Sommet> l_parents) {
+        ArrayList<Sommet> chemin = new ArrayList<Sommet>();
+
+        // Si s2 n'est pas le départ et n'a pas de parent, il n'est pas atteignable
+        if (s1.getId() != s2.getId() && l_parents.get(s2.getId()) == null) {
+            return chemin; // retourne la liste vide
+        }
+
+        // On remonte de s2 jusqu'à s1 en suivant les parents
+        Sommet courant = s2;
+        while (courant != null) {
+            chemin.add(courant);
+            courant = l_parents.get(courant.getId());
+        }
+
+        // On remet le chemin dans l'ordre (de s1 vers s2)
+        Collections.reverse(chemin);
+        return chemin;
+    }
+
+
 }
