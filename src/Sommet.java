@@ -2,9 +2,9 @@ import java.util.*;
 
 public class Sommet {
     /* attributs à compléter */
-    int id;
-    String nom;
-    List<Sommet> l_successeurs;
+    private int id;
+    private String nom;
+    private List<Sommet> l_successeurs;
 
     /* constructeur à compléter */
     public Sommet(int id, String nom) {

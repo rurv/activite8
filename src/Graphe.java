@@ -95,11 +95,18 @@ public class Graphe {
     version récursive
    retour : liste des sommets explorés*/
     public ArrayList<Sommet> explorerProfondeur_rec(Sommet s){
-
+        ArrayList<Boolean> marque = new ArrayList<Boolean>();
+        for (int i = 0; i < l_sommets.size(); i++) marque.add(false);
+        ArrayList<Sommet> l_decouverts = new ArrayList<Sommet>();
+        parcoursProfondeur_rec(s, l_decouverts, marque);
+        return l_decouverts;
     }
     public void parcoursProfondeur_rec(Sommet s,ArrayList<Sommet> l_decouverts,ArrayList<Boolean> marque){
-
-        
+        marque.set(s.getId(), true);
+        l_decouverts.add(s);
+        for (Sommet si : s.getSuccesseurs()) {
+            if (!marque.get(si.getId())) parcoursProfondeur_rec(si, l_decouverts, marque);
+        }
     }
     /* Affichage des listes de successeurs*/
     public void afficherListeSucc(){
