@@ -52,8 +52,19 @@ public class Graphe {
     /*exploration en largeur à partir d'un sommet s
     retour : liste des sommets explorés*/
     public ArrayList<Sommet> explorerLargeur(Sommet s){
-        /* METHODE A COPLETER */
-
+        ArrayList<Sommet> s_decouverts = new ArrayList<Sommet>();
+        ArrayDeque<Sommet> queue = new ArrayDeque<Sommet>();
+        s_decouverts.add(s);
+        queue.add(s);
+        while (!queue.isEmpty()) {
+            for (Sommet si : queue.removeFirst().getSuccesseurs()) {
+                if (!s_decouverts.contains(si)) {
+                    s_decouverts.add(si);
+                    queue.add(si);
+                }
+            }
+        }
+        return s_decouverts;
     }
     /*exploration en profondeur à partir d'un sommet s
     version itérative avec pile
